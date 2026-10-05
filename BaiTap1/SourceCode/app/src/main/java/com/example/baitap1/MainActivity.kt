@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,13 +18,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.baitap1.ui.theme.BaiTap1Theme
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.draw.clip
@@ -42,22 +39,20 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BaiTap1Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        modifier = Modifier.padding(innerPadding)
+                    BaiTap1(
                     )
                 }
             }
         }
     }
-}
+
 
 @Composable
-fun Greeting(modifier: Modifier = Modifier) {
+fun BaiTap1() {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(30.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -103,21 +98,23 @@ fun Greeting(modifier: Modifier = Modifier) {
                 }
             }
 
-            Spacer(modifier = Modifier.weight(1f))
+            //Spacer(modifier = Modifier.weight(1f))
 
             Column(
-                modifier = modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.avatar),
                     contentDescription = "avatar",
                     modifier = Modifier
                         .size(200.dp)
-                        .background(Color.Cyan, shape = CircleShape)
                         .clip(CircleShape)
                 )
+
                 Spacer(modifier = Modifier.height(12.dp))
+
                 Text(
                     text = "Đặng Phạm Gia Huy",
                     fontSize = 30.sp,
@@ -128,14 +125,6 @@ fun Greeting(modifier: Modifier = Modifier) {
                     fontSize = 25.sp
                 )
             }
-            Spacer(modifier = Modifier.weight(1f))
+            //Spacer(modifier = Modifier.weight(1f))
         }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun BaiTap1Preview() {
-    BaiTap1Theme {
-        Greeting()
-    }
 }
