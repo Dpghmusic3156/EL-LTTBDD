@@ -1,1 +1,7 @@
 BaiTap1/SourceCode/.idea/workspace.xml
+
+# AI Context
+.cobridge
+
+# Antigravity Rules
+.agents/rules/system.md
