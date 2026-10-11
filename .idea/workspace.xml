@@ -21,7 +21,64 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73c3b918-f8db-41b5-a8db-57f285520469" name="Changes" comment="" />
+    <list default="true" id="73c3b918-f8db-41b5-a8db-57f285520469" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BaiTap2/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/.idea/AndroidProjectSystem.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/java/com/example/baitap1/MainActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/java/com/example/baitap1/ui/theme/Color.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/java/com/example/baitap1/ui/theme/Theme.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/java/com/example/baitap1/ui/theme/Type.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/keepRules/rules.keep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/drawable/avatar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/gradle/gradle-daemon-jvm.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/gradle/libs.versions.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/SourceCode/settings.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BaiTap2/TaiLieu/.gitkeep" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,15 +143,17 @@
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "G:/hacker/LapTrinhThietBiDiDong",
+    "last_opened_file_path": "G:/hacker/EL-LTTBDD/BaiTap2",
     "settings.editor.selected.configurable": "com.android.studio.ml.McpConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\hacker\EL-LTTBDD\BaiTap2" />
       <recent name="G:\hacker\LapTrinhThietBiDiDong\app\src\main\res\drawable" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\hacker\EL-LTTBDD" />
       <recent name="G:\hacker\LapTrinhThietBiDiDong\app\src\main\res\drawable" />
     </key>
   </component>
@@ -243,6 +302,17 @@
       <updated>1790747765349</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
