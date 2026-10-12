@@ -21,8 +21,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73c3b918-f8db-41b5-a8db-57f285520469" name="Changes" comment="feat: add BaiTap2 project with basic calculator UI and project configuration">
-      <change beforePath="$PROJECT_DIR$/../../BaiTap2/SourceCode/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../BaiTap2/SourceCode/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="73c3b918-f8db-41b5-a8db-57f285520469" name="Changes" comment="feat: add BaiTap3 project with student list UI and project configuration">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +84,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Android App.app.executor": "Run",
     "Compose Preview.BaiTap1.executor": "Run",
     "Compose Preview.BaiTap1Preview.executor": "Run",
@@ -95,7 +96,6 @@
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "deletionFromPopupRequiresConfirmation": "false",
@@ -280,7 +280,23 @@
       <option name="project" value="LOCAL" />
       <updated>1791740848519</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: add BaiTap3 project with student list UI and project configuration">
+      <option name="closed" value="true" />
+      <created>1791798480450</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1791798480450</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: add BaiTap3 project with student list UI and project configuration">
+      <option name="closed" value="true" />
+      <created>1791798706626</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1791798706626</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -308,7 +324,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: add BaiTap2 project with basic calculator UI and project configuration" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add BaiTap2 project with basic calculator UI and project configuration" />
+    <MESSAGE value="chore: update workspace configuration for BaiTap2" />
+    <MESSAGE value="feat: add BaiTap3 project with student list UI and project configuration" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add BaiTap3 project with student list UI and project configuration" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
@@ -321,6 +339,16 @@
         <entry key="com.example.BaiTap2.test">
           <value>
             <CheckInfo lastCheckTimestamp="1791740738201" />
+          </value>
+        </entry>
+        <entry key="com.example.BaiTap2_1">
+          <value>
+            <CheckInfo lastCheckTimestamp="1791798469930" />
+          </value>
+        </entry>
+        <entry key="com.example.BaiTap2_1.test">
+          <value>
+            <CheckInfo lastCheckTimestamp="1791798469929" />
           </value>
         </entry>
         <entry key="com.example.BaiTap3">
