@@ -64,7 +64,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BaiTap4() {
     val navController = rememberNavController()
-    val repository = remember { OnboardingRepository() }
 
     NavHost(
         navController = navController,
@@ -81,9 +80,8 @@ fun BaiTap4() {
         }
 
         composable("onboarding/1") {
-            val step = repository.getStepByNumber(1)!!
             OnboardingScreen(
-                step = step,
+                step = OnboardingData.steps[0],
                 onNextClick = {
                     navController.navigate("onboarding/2")
                 },
@@ -96,9 +94,8 @@ fun BaiTap4() {
         }
 
         composable("onboarding/2") {
-            val step = repository.getStepByNumber(2)!!
             OnboardingScreen(
-                step = step,
+                step = OnboardingData.steps[1],
                 onNextClick = {
                     navController.navigate("onboarding/3")
                 },
@@ -111,9 +108,8 @@ fun BaiTap4() {
         }
 
         composable("onboarding/3") {
-            val step = repository.getStepByNumber(3)!!
             OnboardingScreen(
-                step = step,
+                step = OnboardingData.steps[2],
                 onNextClick = {
                     navController.navigate("start") {
                         popUpTo("onboarding/3") { inclusive = true }
