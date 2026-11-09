@@ -1,0 +1,561 @@
+﻿package com.uthtodo.dpgh
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.uthtodo.dpgh.ui.theme.BaiTap5Theme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        FirebaseManager.init(this)
+        com.uthtodo.dpgh.data.SessionManager.init(this)
+        setContent {
+            BaiTap5Theme(darkTheme = false, dynamicColor = false) {
+                BaiTap5()
+            }
+        }
+    }
+}
+
+@Composable
+fun BaiTap5() {
+    val navController = rememberNavController()
+
+    NavHost(
+        navController = navController,
+        startDestination = "start"
+    ) {
+        composable("start") {
+            WelcomeScreen(
+                onReadyClick = {
+                    navController.navigate("onboarding/1") {
+                        popUpTo("start") { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable("onboarding/1") {
+            OnboardingScreen(
+                step = OnboardingData.steps[0],
+                onNextClick = {
+                    navController.navigate("onboarding/2")
+                },
+                onSkipClick = {
+                    navController.navigate("auth") {
+                        popUpTo("start") { inclusive = true }
+                    }
+                },
+                onDotClick = { step ->
+                    if (step != 1) navController.navigate("onboarding/$step")
+                }
+            )
+        }
+
+        composable("onboarding/2") {
+            OnboardingScreen(
+                step = OnboardingData.steps[1],
+                onNextClick = {
+                    navController.navigate("onboarding/3")
+                },
+                onSkipClick = {
+                    navController.navigate("auth") {
+                        popUpTo("start") { inclusive = true }
+                    }
+                },
+                onDotClick = { step ->
+                    if (step != 2) navController.navigate("onboarding/$step")
+                }
+            )
+        }
+
+        composable("onboarding/3") {
+            OnboardingScreen(
+                step = OnboardingData.steps[2],
+                onNextClick = {
+                    navController.navigate("auth") {
+                        popUpTo("start") { inclusive = true }
+                    }
+                },
+                onSkipClick = {
+                    navController.navigate("auth") {
+                        popUpTo("start") { inclusive = true }
+                    }
+                },
+                onDotClick = { step ->
+                    if (step != 3) navController.navigate("onboarding/$step")
+                }
+            )
+        }
+
+        composable("auth") {
+            LoginScreen(
+                onGoogleClick = {
+                    navController.navigate("home") {
+                        popUpTo("auth") { inclusive = true }
+                    }
+                },
+                onGuestClick = {
+                    navController.navigate("home") {
+                        popUpTo("auth") { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable("home") {
+            HomeScreen(
+                onAvatarClick = { navController.navigate("profile") },
+                onNotificationClick = {
+                    navController.navigate("notifications") {
+                        popUpTo("home")
+                        launchSingleTop = true
+                    }
+                },
+                onViewAllClick = {
+                    navController.navigate("tasks") {
+                        popUpTo("home")
+                        launchSingleTop = true
+                    }
+                },
+                onCategoryClick = { cat ->
+                    navController.navigate("tasks?category=$cat")
+                },
+                onTaskClick = { taskId ->
+                    navController.navigate("task_detail/$taskId")
+                },
+                onAddTaskClick = {
+                    navController.navigate("task_form")
+                },
+                onNavClick = { route ->
+                    if (route == "home") {
+                        navController.navigate("home") {
+                            popUpTo("home") { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    } else {
+                        navController.navigate(route) {
+                            popUpTo("home")
+                            launchSingleTop = true
+                        }
+                    }
+                }
+            )
+        }
+
+        composable(
+            route = "tasks?category={category}",
+            arguments = listOf(
+                navArgument("category") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                }
+            )
+        ) { backStackEntry ->
+            val category = backStackEntry.arguments?.getString("category")
+            TaskListScreen(
+                initialCategoryFilter = category,
+                onTaskClick = { taskId ->
+                    navController.navigate("task_detail/$taskId")
+                },
+                onAddTaskClick = {
+                    navController.navigate("task_form")
+                },
+                onNavClick = { route ->
+                    if (route == "home") {
+                        navController.navigate("home") {
+                            popUpTo("home") { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    } else {
+                        navController.navigate(route) {
+                            popUpTo("home")
+                            launchSingleTop = true
+                        }
+                    }
+                }
+            )
+        }
+
+        composable(
+            route = "task_detail/{taskId}",
+            arguments = listOf(
+                navArgument("taskId") {
+                    type = NavType.IntType
+                }
+            )
+        ) { backStackEntry ->
+            val taskId = backStackEntry.arguments?.getInt("taskId") ?: 0
+            TaskDetailScreen(
+                taskId = taskId,
+                onBackClick = { navController.popBackStack() },
+                onEditClick = { id ->
+                    navController.navigate("task_form?taskId=$id")
+                }
+            )
+        }
+
+        composable(
+            route = "task_form?taskId={taskId}",
+            arguments = listOf(
+                navArgument("taskId") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                }
+            )
+        ) { backStackEntry ->
+            val taskIdStr = backStackEntry.arguments?.getString("taskId")
+            val taskId = taskIdStr?.toIntOrNull()
+            AddEditTaskScreen(
+                taskId = taskId,
+                onBackClick = { navController.popBackStack() },
+                onSaved = { navController.popBackStack() }
+            )
+        }
+
+        composable("notifications") {
+            NotificationScreen(
+                onAddTaskClick = {
+                    navController.navigate("task_form")
+                },
+                onNavClick = { route ->
+                    if (route == "home") {
+                        navController.navigate("home") {
+                            popUpTo("home") { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    } else {
+                        navController.navigate(route) {
+                            popUpTo("home")
+                            launchSingleTop = true
+                        }
+                    }
+                }
+            )
+        }
+
+        composable("settings") {
+            SettingsScreen(
+                onAddTaskClick = {
+                    navController.navigate("task_form")
+                },
+                onNavClick = { route ->
+                    if (route == "home") {
+                        navController.navigate("home") {
+                            popUpTo("home") { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    } else {
+                        navController.navigate(route) {
+                            popUpTo("home")
+                            launchSingleTop = true
+                        }
+                    }
+                }
+            )
+        }
+
+        composable("profile") {
+            ProfileScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onLogoutClick = {
+                    navController.navigate("auth") {
+                        popUpTo("home") { inclusive = true }
+                    }
+                },
+                onLinkGoogleClick = {
+                    navController.navigate("auth")
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun WelcomeScreen(
+    onReadyClick: () -> Unit
+) {
+    val animatableProgress = remember { Animatable(0f) }
+    var slogan by remember { mutableStateOf(FirebaseManager.getWelcomeSlogan()) }
+
+    LaunchedEffect(Unit) {
+        FirebaseManager.remoteConfig.fetchAndActivate().addOnCompleteListener {
+            slogan = FirebaseManager.getWelcomeSlogan()
+        }
+        animatableProgress.animateTo(
+            targetValue = 1f,
+            animationSpec = tween(
+                durationMillis = 2000,
+                easing = LinearEasing
+            )
+        )
+        onReadyClick()
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF2F5BEA))
+            .statusBarsPadding()
+            .navigationBarsPadding()
+            .clickable { onReadyClick() },
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 32.dp, vertical = 56.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+
+            Surface(
+                modifier = Modifier.size(116.dp),
+                shape = RoundedCornerShape(27.dp),
+                color = Color.White,
+                shadowElevation = 12.dp
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    UthLogoIcon()
+                }
+            }
+
+            Spacer(modifier = Modifier.height(22.dp))
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "UTH",
+                    fontSize = 40.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = Color.White,
+                    letterSpacing = (-1).sp
+                )
+                Text(
+                    text = " Todo",
+                    fontSize = 40.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.White,
+                    letterSpacing = (-1).sp
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = slogan,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Normal,
+                color = Color.White.copy(alpha = 0.9f),
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Box(
+                    modifier = Modifier
+                        .width(120.dp)
+                        .height(4.dp)
+                        .background(
+                            color = Color.White.copy(alpha = 0.28f),
+                            shape = RoundedCornerShape(2.dp)
+                        )
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth(animatableProgress.value)
+                            .background(
+                                color = Color.White,
+                                shape = RoundedCornerShape(2.dp)
+                            )
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                Text(
+                    text = "Phiên bản 1.0",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.White.copy(alpha = 0.9f)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun UthLogoIcon() {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalAlignment = Alignment.Start
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(22.dp)
+                    .background(Color(0xFF2F5BEA), CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Canvas(modifier = Modifier.size(12.dp)) {
+                    val path = Path().apply {
+                        moveTo(size.width * 0.2f, size.height * 0.5f)
+                        lineTo(size.width * 0.45f, size.height * 0.75f)
+                        lineTo(size.width * 0.85f, size.height * 0.25f)
+                    }
+                    drawPath(
+                        path = path,
+                        color = Color.White,
+                        style = Stroke(
+                            width = 2.5.dp.toPx(),
+                            cap = StrokeCap.Round,
+                            join = StrokeJoin.Round
+                        )
+                    )
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .width(38.dp)
+                    .height(10.dp)
+                    .background(Color(0xFF2F5BEA), RoundedCornerShape(5.dp))
+            )
+        }
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Canvas(modifier = Modifier.size(22.dp)) {
+                drawCircle(
+                    color = Color(0xFF91A7F6),
+                    radius = (size.minDimension / 2) - (1.75.dp.toPx()),
+                    style = Stroke(width = 3.5.dp.toPx())
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .width(38.dp)
+                    .height(10.dp)
+                    .background(Color(0xFFB8C8FF), RoundedCornerShape(5.dp))
+            )
+        }
+    }
+}
+
+@Composable
+fun KhungManHinh(
+    title: String,
+    onBack: (() -> Unit)? = null,
+    content: @Composable BoxScope.() -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .statusBarsPadding()
+            .navigationBarsPadding()
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = title,
+                color = Color(0xFF2196F3),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            if (onBack != null) {
+                TextButton(
+                    onClick = onBack,
+                    modifier = Modifier.align(Alignment.CenterStart)
+                ) {
+                    Text(
+                        text = "‹",
+                        fontSize = 32.sp,
+                        color = Color(0xFF2196F3)
+                    )
+                }
+            }
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            content = content
+        )
+    }
+}
