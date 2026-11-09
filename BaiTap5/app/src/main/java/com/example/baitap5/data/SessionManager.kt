@@ -18,6 +18,7 @@ object SessionManager {
     private const val KEY_NAME = "user_name"
     private const val KEY_EMAIL = "user_email"
     private const val KEY_IS_GUEST = "user_is_guest"
+    private const val KEY_HAS_LOGGED_IN = "has_logged_in"
 
     private lateinit var prefs: SharedPreferences
 
@@ -37,12 +38,20 @@ object SessionManager {
         )
     }
 
+    fun hasLoggedIn(): Boolean {
+        if (!::prefs.isInitialized) return false
+        val firebaseUser = com.example.baitap5.FirebaseManager.currentUser()
+        if (firebaseUser != null && !firebaseUser.isAnonymous) return true
+        return prefs.getBoolean(KEY_HAS_LOGGED_IN, false)
+    }
+
     fun setGoogleUser(name: String, email: String) {
         val safeName = if (name.isNotBlank()) name else (email.substringBefore("@").ifBlank { "Minh Anh" })
         prefs.edit().apply {
             putString(KEY_NAME, safeName)
             putString(KEY_EMAIL, email)
             putBoolean(KEY_IS_GUEST, false)
+            putBoolean(KEY_HAS_LOGGED_IN, true)
             apply()
         }
         _session.value = UserSession(
@@ -58,6 +67,7 @@ object SessionManager {
             putString(KEY_NAME, "Khách")
             putString(KEY_EMAIL, "")
             putBoolean(KEY_IS_GUEST, true)
+            putBoolean(KEY_HAS_LOGGED_IN, true)
             apply()
         }
         _session.value = UserSession(
@@ -69,7 +79,20 @@ object SessionManager {
     }
 
     fun logout() {
-        setGuestUser()
+        prefs.edit().apply {
+            putString(KEY_NAME, "Khách")
+            putString(KEY_EMAIL, "")
+            putBoolean(KEY_IS_GUEST, true)
+            putBoolean(KEY_HAS_LOGGED_IN, false)
+            apply()
+        }
+        _session.value = UserSession(
+            displayName = "Khách",
+            email = "",
+            isGuest = true,
+            avatarInitials = "K"
+        )
+        com.example.baitap5.FirebaseManager.signOut()
     }
 
     /**

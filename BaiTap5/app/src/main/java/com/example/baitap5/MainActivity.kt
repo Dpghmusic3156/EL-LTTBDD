@@ -79,8 +79,14 @@ fun BaiTap5() {
         composable("start") {
             WelcomeScreen(
                 onReadyClick = {
-                    navController.navigate("onboarding/1") {
-                        popUpTo("start") { inclusive = true }
+                    if (com.example.baitap5.data.SessionManager.hasLoggedIn()) {
+                        navController.navigate("home") {
+                            popUpTo("start") { inclusive = true }
+                        }
+                    } else {
+                        navController.navigate("onboarding/1") {
+                            popUpTo("start") { inclusive = true }
+                        }
                     }
                 }
             )

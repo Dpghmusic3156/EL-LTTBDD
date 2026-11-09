@@ -79,8 +79,14 @@ fun BaiTap5() {
         composable("start") {
             WelcomeScreen(
                 onReadyClick = {
-                    navController.navigate("onboarding/1") {
-                        popUpTo("start") { inclusive = true }
+                    if (com.uthtodo.dpgh.data.SessionManager.hasLoggedIn()) {
+                        navController.navigate("home") {
+                            popUpTo("start") { inclusive = true }
+                        }
+                    } else {
+                        navController.navigate("onboarding/1") {
+                            popUpTo("start") { inclusive = true }
+                        }
                     }
                 }
             )
