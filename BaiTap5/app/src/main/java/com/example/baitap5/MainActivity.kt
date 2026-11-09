@@ -47,9 +47,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.baitap5.ui.theme.BaiTap5Theme
 
 class MainActivity : ComponentActivity() {
@@ -140,18 +142,168 @@ fun BaiTap5() {
         composable("auth") {
             LoginScreen(
                 onGoogleClick = {
-                    navController.navigate("home")
+                    navController.navigate("home") {
+                        popUpTo("auth") { inclusive = true }
+                    }
                 },
                 onGuestClick = {
-                    navController.navigate("home")
+                    navController.navigate("home") {
+                        popUpTo("auth") { inclusive = true }
+                    }
                 }
             )
         }
 
         composable("home") {
             HomeScreen(
-                onAvatarClick = {
-                    navController.navigate("profile")
+                onAvatarClick = { navController.navigate("profile") },
+                onNotificationClick = {
+                    navController.navigate("notifications") {
+                        popUpTo("home")
+                        launchSingleTop = true
+                    }
+                },
+                onViewAllClick = {
+                    navController.navigate("tasks") {
+                        popUpTo("home")
+                        launchSingleTop = true
+                    }
+                },
+                onCategoryClick = { cat ->
+                    navController.navigate("tasks?category=$cat")
+                },
+                onTaskClick = { taskId ->
+                    navController.navigate("task_detail/$taskId")
+                },
+                onAddTaskClick = {
+                    navController.navigate("task_form")
+                },
+                onNavClick = { route ->
+                    if (route == "home") {
+                        navController.navigate("home") {
+                            popUpTo("home") { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    } else {
+                        navController.navigate(route) {
+                            popUpTo("home")
+                            launchSingleTop = true
+                        }
+                    }
+                }
+            )
+        }
+
+        composable(
+            route = "tasks?category={category}",
+            arguments = listOf(
+                navArgument("category") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                }
+            )
+        ) { backStackEntry ->
+            val category = backStackEntry.arguments?.getString("category")
+            TaskListScreen(
+                initialCategoryFilter = category,
+                onTaskClick = { taskId ->
+                    navController.navigate("task_detail/$taskId")
+                },
+                onAddTaskClick = {
+                    navController.navigate("task_form")
+                },
+                onNavClick = { route ->
+                    if (route == "home") {
+                        navController.navigate("home") {
+                            popUpTo("home") { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    } else {
+                        navController.navigate(route) {
+                            popUpTo("home")
+                            launchSingleTop = true
+                        }
+                    }
+                }
+            )
+        }
+
+        composable(
+            route = "task_detail/{taskId}",
+            arguments = listOf(
+                navArgument("taskId") {
+                    type = NavType.IntType
+                }
+            )
+        ) { backStackEntry ->
+            val taskId = backStackEntry.arguments?.getInt("taskId") ?: 0
+            TaskDetailScreen(
+                taskId = taskId,
+                onBackClick = { navController.popBackStack() },
+                onEditClick = { id ->
+                    navController.navigate("task_form?taskId=$id")
+                }
+            )
+        }
+
+        composable(
+            route = "task_form?taskId={taskId}",
+            arguments = listOf(
+                navArgument("taskId") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                }
+            )
+        ) { backStackEntry ->
+            val taskIdStr = backStackEntry.arguments?.getString("taskId")
+            val taskId = taskIdStr?.toIntOrNull()
+            AddEditTaskScreen(
+                taskId = taskId,
+                onBackClick = { navController.popBackStack() },
+                onSaved = { navController.popBackStack() }
+            )
+        }
+
+        composable("notifications") {
+            NotificationScreen(
+                onAddTaskClick = {
+                    navController.navigate("task_form")
+                },
+                onNavClick = { route ->
+                    if (route == "home") {
+                        navController.navigate("home") {
+                            popUpTo("home") { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    } else {
+                        navController.navigate(route) {
+                            popUpTo("home")
+                            launchSingleTop = true
+                        }
+                    }
+                }
+            )
+        }
+
+        composable("settings") {
+            SettingsScreen(
+                onAddTaskClick = {
+                    navController.navigate("task_form")
+                },
+                onNavClick = { route ->
+                    if (route == "home") {
+                        navController.navigate("home") {
+                            popUpTo("home") { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    } else {
+                        navController.navigate(route) {
+                            popUpTo("home")
+                            launchSingleTop = true
+                        }
+                    }
                 }
             )
         }
@@ -165,6 +317,9 @@ fun BaiTap5() {
                     navController.navigate("auth") {
                         popUpTo("home") { inclusive = true }
                     }
+                },
+                onLinkGoogleClick = {
+                    navController.navigate("auth")
                 }
             )
         }

@@ -77,7 +77,7 @@ fun TaskListScreen(
 
     var searchQuery by remember { mutableStateOf("") }
     // Filter chip: "all", "study", "life"
-    var selectedCategory by remember { mutableStateOf(initialCategoryFilter ?: "all") }
+    var selectedCategory by remember(initialCategoryFilter) { mutableStateOf(initialCategoryFilter ?: "all") }
 
     LaunchedEffect(Unit) {
         if (allTasks.isEmpty()) {
