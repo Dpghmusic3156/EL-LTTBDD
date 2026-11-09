@@ -3,6 +3,14 @@ package com.example.baitap5.data
 import org.json.JSONArray
 import org.json.JSONObject
 
+data class TaskItem(
+    val id: Int,
+    val title: String,
+    val category: String,
+    val time: String,
+    val isCompleted: Boolean
+)
+
 data class Subtask(
     val title: String,
     val done: Boolean = false
