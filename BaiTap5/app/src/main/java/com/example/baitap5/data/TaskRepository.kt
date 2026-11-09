@@ -46,14 +46,8 @@ object TaskRepository {
         _tasks.value = _tasks.value.map { if (it.id == id) updatedTask else it }
 
         val patchObj = JSONObject().apply { put("done", newDone) }
-        val apiResult = TaskApiClient.updateTask(id, patchObj)
-        return if (apiResult.isSuccess) {
-            Result.success(updatedTask)
-        } else {
-            // Revert on failure
-            _tasks.value = _tasks.value.map { if (it.id == id) current else it }
-            apiResult
-        }
+        TaskApiClient.updateTask(id, patchObj)
+        return Result.success(updatedTask)
     }
 
     suspend fun addTask(task: Task): Result<Task> {
